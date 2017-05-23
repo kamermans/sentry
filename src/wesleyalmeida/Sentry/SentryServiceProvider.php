@@ -23,8 +23,9 @@ class SentryServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('wesleyalmeida/sentry');
-
+		$this->publishes([
+			__DIR__.'/../../config/sentry.php' => config_path('sentry.php'),
+		]);
 	}
 
 	/**
@@ -34,7 +35,7 @@ class SentryServiceProvider extends ServiceProvider {
 	 */
 	public function register() {
 
-		App::bindShared('sentry', function($app) {
+		App::singleton('sentry', function($app) {
 
 			$defaults = Config::get('sentry::sentry.defaults');
 
@@ -54,7 +55,7 @@ class SentryServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return [];
 	}
 
 }
